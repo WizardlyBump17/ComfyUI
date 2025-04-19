@@ -101,7 +101,9 @@ if args.directml is not None:
     lowvram_available = False #TODO: need to find a way to get free memory in directml before this can be enabled by default.
 
 try:
-    import intel_extension_for_pytorch as ipex
+    #import intel_extension_for_pytorch as ipex
+    from ipex_to_cuda import ipex_init
+    print(f"ipex_init: {ipex_init()}")
     _ = torch.xpu.device_count()
     xpu_available = xpu_available or torch.xpu.is_available()
 except:
@@ -1209,7 +1211,7 @@ def should_use_bf16(device=None, model_params=0, prioritize_performance=True, ma
     return False
 
 def supports_fp8_compute(device=None):
-    if not is_nvidia():
+    if not is_nvidia() or is_intel_xpu():
         return False
 
     props = torch.cuda.get_device_properties(device)
