@@ -1,10 +1,6 @@
 comfyui-frontend-package==1.21.7
 comfyui-workflow-templates==0.1.25
-comfyui-embedded-docs==0.2.0
-torch
 torchsde
-torchvision
-torchaudio
 numpy>=1.25.0
 einops
 transformers>=4.28.1
@@ -25,3 +21,9 @@ spandrel
 soundfile
 av>=14.2.0
 pydantic~=2.0
+
+#Intel GPUs
+--pre --extra-index-url https://download.pytorch.org/whl/nightly/xpu
+torch[xpu]
+torchvision[xpu]
+torchaudio[xpu]
